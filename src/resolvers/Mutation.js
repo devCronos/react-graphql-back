@@ -8,6 +8,27 @@ const mutations = {
             }
         }, info);
         return item;
+    },
+    updateItem(parent, args, ctx, info) {
+        // first take a copy of the updates
+        const updates = {...args};
+        // remove the ID from the updates
+        delete updates.id;
+        // run the update method
+        return ctx.db.mutation.updateItem({
+            data: updates,
+            where: {
+                id: args.id
+            }
+        },info)
+    },
+    async deleteItem(parent, args, ctx, info) {
+        const where = {id: args.id};
+        // find item
+        const item = await ctx.db.query.item({where}, `{id title}`);
+        // check for permission
+        // delete
+        return ctx.db.mutation.deleteItem({where}, info)
     }
 };
 
