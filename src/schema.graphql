@@ -1,5 +1,5 @@
 # import * from './generated/prisma.graphql'
-#yoga 47now
+#yoga 49.13now
 type SuccessMessage {
     message: String
 }
@@ -16,6 +16,7 @@ type Mutation {
     updatePermissions(permissions: [Permission], userId: ID!): User
     addToCart(id: ID!): CartItem
     removeFromCart(id: ID!): CartItem
+    createOrder(token: String!): Order!
 }
 type Query {
     items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!
@@ -23,6 +24,8 @@ type Query {
     itemsConnection(where: ItemWhereInput): ItemConnection!
     me: User
     users: [User]!
+    order(id: ID!): Order
+    orders(orderBy: OrderOrderByInput): [Order]!
 }
 type User {
   id: ID! 
